@@ -1,0 +1,9 @@
+FROM node
+
+WORKDIR /app
+
+COPY app/products/package*.json ./
+
+RUN npm cache clean --force && npm install
+
+COPY app/products/. . 

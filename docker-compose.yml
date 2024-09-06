@@ -1,0 +1,56 @@
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', '${DB_USER}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  products-service:
+    build:
+      context: .
+      dockerfile: Dockerfile-products
+    command: npm start
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - '3000:3000'
+    volumes:
+      - './app/products:/app'
+    depends_on:
+      db:
+        condition: service_healthy
+
+  actions-service:
+    build:
+      context: .
+      dockerfile: Dockerfile-actions
+    command: npm start
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - '3001:3001'
+    volumes:
+      - './app/actions:/app'
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db:
