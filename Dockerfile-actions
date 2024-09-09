@@ -8,4 +8,4 @@ RUN npm cache clean --force && npm install
 
 COPY app/actions/. . 
 
-RUN npm build
+RUN npm run build

@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import 'reflect-metadata';
 import sequelize from './src/models/index';
 import { createExpressServer } from 'routing-controllers';
+import ActionsController from './src/controller/Actions/Actions.controller';
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ class App {
     createExpressServer({
       cors: true,
       routePrefix: '/api',
-      controllers: [],
+      controllers: [ActionsController],
     }).listen(PORT);
   }
 }

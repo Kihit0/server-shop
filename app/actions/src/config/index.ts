@@ -7,7 +7,9 @@ const config = {
     host: process.env.DB_HOST || 'localhost',
     port: 5432,
     ssl: false,
-    clientMinMessages: 'notice',
+    dialectOptions: {
+      clientMinMessages: 'warning',
+    },
   },
 };
 

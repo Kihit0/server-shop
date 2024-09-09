@@ -25,6 +25,10 @@ Actions.init(
       type: DataTypes.DATE,
       allowNull: false,
     },
+    plu: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   { sequelize },
 );
