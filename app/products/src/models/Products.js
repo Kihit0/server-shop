@@ -1,9 +1,9 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from './index.js';
 
-class Product extends Model {}
+class Products extends Model {}
 
-Product.init(
+Products.init(
   {
     plu: {
       type: DataTypes.STRING,
@@ -18,4 +18,4 @@ Product.init(
   { sequelize },
 );
 
-export default Product;
+export default Products;
