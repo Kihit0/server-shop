@@ -10,8 +10,8 @@ export class UserService {
     const count = await this.userModel.count({ where: { has_problem: true } });
 
     await this.userModel.update(
-      { has_problem: true },
-      { where: { has_problem: false } },
+      { has_problem: false },
+      { where: { has_problem: true } },
     );
 
     return count;
